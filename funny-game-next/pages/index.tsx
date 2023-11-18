@@ -1,10 +1,12 @@
 import { Inter } from 'next/font/google'
-import s from "./index.module.scss"
+import styles from "./index.module.scss"
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { Socket } from 'socket.io-client';
 import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] })
+import Link from 'next/link';
+
 
 export default function Home() {
   const [socket, setSocket] = useState<Socket | null | any>(null);
@@ -81,24 +83,38 @@ export default function Home() {
 
 
   return (
-    <main className={`${s.main} ${inter.className}`}>
-      <div>
-        <div>
-          <button onClick={() => socket?.emit('createRoom')}>Create Room</button>
-          <button onClick={joinRoom}>Join Room</button>
-          <button onClick={startRoom}>Start Room</button>
-        </div>
-        {roomId && <p>Room ID: {roomId}</p>}
-        {name && <p>Your Name: {name}</p>}
-        <div>
-        <h2>Connected Users:</h2>
+    <>
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+        body {
+          background-color: #011134;
+          font-family: 'Jockey One', sans-serif;
+        }
+      `}</style>
+
+      <nav className={styles.navbar}>
         <ul>
-          {connectedUsers.map((user) => (
-            <li key={user}>{user}</li>
-          ))}
+          <li><Link href="/" className={styles.navLink}>Home</Link></li>
+          <li><Link href="/how-to-play" className={styles.navLink}>How to Play</Link></li>
+          <li><Link href="/gallery" className={styles.navLink}>Gallery</Link></li>
+          <li><Link href="/faqs" className={styles.navLink}>FAQs</Link></li>
+          <li><Link href="/about-us" className={styles.navLink}>About Us</Link></li>
+          <li><Link href="/privacy-terms" className={styles.navLink}>Privacy Terms</Link></li>
+          <li><Link href="/blog" className={styles.navLink}>Blog</Link></li>
         </ul>
-      </div>
-      </div>
-    </main>
+      </nav>
+
+      <header className={styles.header}>
+        <img src="/funny-game.png" alt="Funny Game Logo" className={styles.logo} />
+        <button className={styles.playButton}>Play Me!</button>
+        <p className={styles.tagline}>Unleash Your Imagination with AI-generated Art!</p>
+      </header>
+
+      <section className={styles.photoContainerGrid}>
+        {Array.from({ length: 7 }).map((_, index) => (
+          <div key={index} className="photo-container">{/* content */}</div>
+        ))}
+      </section>
+    </>
   )
 }

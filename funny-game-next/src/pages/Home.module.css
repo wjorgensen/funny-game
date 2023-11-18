@@ -1,0 +1,93 @@
+.body {
+    background-color: #011134;
+    font-family: 'Jockey One', sans-serif;
+}
+
+.navbar {
+    background-color: #FEEFD0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.navbar li {
+    display: inline-block;
+    padding: 20px 30px;
+}
+
+.navbar li a {
+    color: #011134;
+    font-size: 22px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+  
+.navbar li a:hover {
+    color: #ffcc00;
+}
+  
+.header {
+    text-align: center;
+    padding: 50px 0;
+    display: flex; /* Using flexbox to center child elements */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center;
+}
+
+.logo {
+    max-width: 250px;
+    margin-bottom: 20px;
+}
+
+.playButton {
+    background-color: #FB713E; /* Play Me button color */
+    color: white; /* Play Me button font color */
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}  
+  
+.play-button {
+    background-color: #FB713E; /* Play Me button color */
+    color: white; /* Play Me button font color */
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.play-button:hover {
+    background-color: #cc5a31;
+}
+  
+.tagline {
+    color: #FEEFD0;
+    margin-bottom: 50px;
+    font-size: 18px;
+}
+
+.photo-container-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px; /* Adjust gap size as needed */
+    padding: 0 50px;
+    justify-content: center;
+}
+
+.photo-container {
+    background-color: blue; /* Adjust to the color of your photo container */
+    height: 150px; /* Adjust height as needed */
+    border-radius: 10px; /* Adjust for rounded corners if desired */
+}
+  
