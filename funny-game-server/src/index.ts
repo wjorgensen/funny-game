@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Server, Socket } from 'socket.io';
 import { createServer } from 'node:http';
-import Room from "./Room";
+import Room from "./modules/Room";
 
 const app = express();
 const port = process.env.PORT || 3000;

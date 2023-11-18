@@ -1,4 +1,5 @@
 import Player from "./Player";
+import ImageGenerator from "./ImageGenerator";
 
 export default class FunnyImage {
 
@@ -12,9 +13,9 @@ export default class FunnyImage {
         this.prompts = [];
     }
 
-    generateNextImage(prompt: string) {
+    async generateNextImage(prompt: string) {
+        let url = await ImageGenerator.generate(this.prompts, prompt)
+        this.urls.push(url)
         this.prompts.push(prompt)
-
-        // TODO: generate image and add to urls
     }
 }
