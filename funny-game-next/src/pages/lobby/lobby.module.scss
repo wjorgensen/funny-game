@@ -1,0 +1,12 @@
+
+.grid{
+    display: grid;
+    grid-template-columns: 10fr 5fr;
+    grid-gap: 10px;
+    margin: 10px;
+}
+
+.textField{
+    background-color: blue;
+    color: red;
+}
