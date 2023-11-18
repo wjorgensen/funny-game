@@ -3,7 +3,7 @@ import { Server } from "socket.io";
 import http from 'http';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const server = http.createServer(app)
 
 const io = new Server(server, {
@@ -32,13 +32,8 @@ io.on('connection', (socket) => {
     socket.on('start-game', () => {
         console.log("Game started by host");
         socket.emit('request-prompt')
+        socket.emit('image-url', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Example_image.svg/600px-Example_image.svg.png')
     })
-
-    // Asks the user to input a prompt
-    socket.emit('request-prompt')
-
-    // Shows the current image to the user
-    socket.emit('image-url', 'https://example.com/image.jpg')
 })
 
 // todo: create the room in a realtime db

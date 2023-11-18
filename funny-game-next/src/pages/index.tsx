@@ -7,7 +7,7 @@ export default function Home() {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:3000'); // Adjust this URL to your server
+        const newSocket = io('http://localhost:3001'); // Adjust this URL to your server
         // @ts-ignore
         setSocket(newSocket);
 
