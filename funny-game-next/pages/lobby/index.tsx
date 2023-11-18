@@ -6,23 +6,23 @@ export default function Lobby() {
     <>
       <div className={styles.grid}>
         <h1 className={styles.header}>Lobby</h1>
-        <h1>Participants</h1>
-        <div>
+        <h1 className={styles.partiHeader}>Participants</h1>
+        <div className={styles.partiList}>
           <ul>
             <li>Partcipant 1</li>
             <li>Partcipant 2</li>
             <li>Partcipant 3</li>
           </ul>
         </div>
-        <h1>
+        <h1 className={styles.codeHeader}>
           Room
           <br />
           Code
         </h1>
-        <div>
+        <div className={styles.code}>
           <h2>ABCD</h2>
         </div>
-        <button>Play Game</button>
+        <button className={styles.playButton}>Play Game</button>
       </div>
     </>
   );
