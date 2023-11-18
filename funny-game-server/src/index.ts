@@ -23,16 +23,22 @@ app.get("/createroom", (req: Request, res: Response) => {
 });
 
 io.on('connection', (socket) => {
-    socket.on('client-ready', () => {
-        socket.broadcast.emit('get-canvas-state')
+
+    // For when the player inputs a prompt to generate the next image
+    socket.on('send-prompt', (prompt) => {
+        console.log("Prompt received: " + prompt);
     })
 
-    socket.on('canvas-state', (state) => {
-        console.log('received canvas state')
-        socket.broadcast.emit('canvas-state-from-server', state)
+    socket.on('start-game', () => {
+        console.log("Game started by host");
+        socket.emit('request-prompt')
     })
 
-    socket.on('clear', () => io.emit('clear'))
+    // Asks the user to input a prompt
+    socket.emit('request-prompt')
+
+    // Shows the current image to the user
+    socket.emit('image-url', 'https://example.com/image.jpg')
 })
 
 // todo: create the room in a realtime db
