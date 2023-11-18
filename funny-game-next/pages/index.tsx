@@ -115,6 +115,24 @@ export default function Home() {
           <div key={index} className="photo-container">{/* content */}</div>
         ))}
       </section>
+
+      <div>
+        <div>
+          <button onClick={() => socket?.emit('createRoom')}>Create Room</button>
+          <button onClick={joinRoom}>Join Room</button>
+          <button onClick={startRoom}>Start Room</button>
+        </div>
+        {roomId && <p>Room ID: {roomId}</p>}
+        {name && <p>Your Name: {name}</p>}
+        <div>
+          <h2>Connected Users:</h2>
+          <ul>
+            {connectedUsers.map((user) => (
+                <li key={user}>{user}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </>
   )
 }

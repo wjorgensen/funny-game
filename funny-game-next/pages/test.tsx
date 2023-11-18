@@ -87,13 +87,13 @@ export default function Home() {
         {roomId && <p>Room ID: {roomId}</p>}
         {name && <p>Your Name: {name}</p>}
         <div>
-        <h2>Connected Users:</h2>
-        <ul>
-          {connectedUsers.map((user) => (
-            <li key={user}>{user}</li>
-          ))}
-        </ul>
-      </div>
+          <h2>Connected Users:</h2>
+          <ul>
+            {connectedUsers.map((user) => (
+                <li key={user}>{user}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </main>
   )
