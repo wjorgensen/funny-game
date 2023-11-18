@@ -34,7 +34,7 @@ export default class Player {
 
         // Show only the LATEST url to the player
         let url = image.urls[image.urls.length - 1];
-        this.socket.emit("show-image", url);
+        this.socket.emit("showImage", url);
     }
 
     requestPrompt() {

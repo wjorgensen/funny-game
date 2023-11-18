@@ -3,6 +3,7 @@ import s from "./index.module.scss"
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { Socket } from 'socket.io-client';
+import { useRouter } from 'next/router';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -10,6 +11,8 @@ export default function Home() {
   const [roomId, setRoomId] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [connectedUsers, setConnectedUsers] = useState<string[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const newSocket = io(
@@ -66,6 +69,7 @@ export default function Home() {
     const enteredName = prompt('Enter your name:');
     if (socket && enteredRoomId && enteredName) {
       socket.emit('joinRoom', { roomId: enteredRoomId, name: enteredName });
+      router.push(`/game?roomId=${enteredRoomId}`).then(r => console.log(r));
     }
   };
 
