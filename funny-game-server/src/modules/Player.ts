@@ -16,7 +16,7 @@ export default class Player {
         this.nickname = "Player " + Math.floor(Math.random() * 1000);
         this.funnyImage = new FunnyImage(this);
 
-        this.socket.on("send-prompt", (prompt: string) => {
+        this.socket.on("sendPrompt", (prompt: string) => {
             this.currentPrompt = prompt;
         })
     }
@@ -38,6 +38,12 @@ export default class Player {
     }
 
     requestPrompt() {
-        this.socket.emit("request-prompt")
+        this.socket.emit("requestPrompt")
+    }
+
+    updatePlayers() {
+        this.socket.emit("updatePlayers", this.room.players.map(player => {
+            return player.nickname
+        }))
     }
 }

@@ -45,11 +45,15 @@ io.on('connection', (socket: Socket) => {
         if (room) {
             socket.join(roomId);
             let player = room.addPlayer(socket);
-            player.setNickname(name)
+            if (player) {
+                player.setNickname(name)
+                console.log(`${name} joined room with ID: ${roomId}`);
 
-            io.to(socket.id).emit('joinedRoom', { roomId, name });
-            io.to(roomId).emit('userJoined', { name });
-            console.log(`${name} joined room with ID: ${roomId}`);
+                // Update all players to make sure they have the latest player list
+                room.players.forEach(player => {
+                    player.updatePlayers()
+                })
+            }
         } else {
             io.to(socket.id).emit('roomNotFound');
         }
@@ -62,11 +66,7 @@ io.on('connection', (socket: Socket) => {
             io.to(roomId).emit('roomStarted');
             console.log(`Room with ID ${roomId} started`);
 
-            // Start a 60-second timer
-            room.timer = setTimeout(() => {
-                io.to(roomId).emit('firstRoundEnded');
-                console.log(`First round ended for room ${roomId}`);
-            }, 60000);
+            room.start();
         }
     });
 
