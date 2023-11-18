@@ -25,9 +25,11 @@ app.get("/createroom", (req: Request, res: Response) => {
 
 interface Room {
     roomId: string;
-    clients: Socket[];
+    clients: { socket: Socket; name: string }[];
+    timer?: NodeJS.Timeout;
 }
-const rooms: Room[] = [];
+
+const funnyrooms: Room[] = [];
 
 io.on('connection', (socket: Socket) => {
     console.log('a user connected');
@@ -36,32 +38,40 @@ io.on('connection', (socket: Socket) => {
         const roomId = Math.floor(1000 + Math.random() * 9000).toString();
         socket.join(roomId);
 
-        rooms.push({ roomId, clients: [socket] });
+        funnyrooms.push({ roomId, clients: [{ socket, name: 'Host' }] });
 
         io.to(socket.id).emit('roomCreated', { roomId });
         console.log(`Room created with ID: ${roomId}`);
     });
 
-    socket.on('joinRoom', (roomId: string) => {
-        const room = rooms.find((r) => r.roomId === roomId);
+    socket.on('joinRoom', (data: { roomId: string; name: string }) => {
+        const { roomId, name } = data;
+        const room = funnyrooms.find((r) => r.roomId === roomId);
 
         if (room) {
             socket.join(roomId);
-            room.clients.push(socket);
+            room.clients.push({ socket, name });
 
-            io.to(socket.id).emit('joinedRoom', { roomId });
-            console.log(`User joined room with ID: ${roomId}`);
+            io.to(socket.id).emit('joinedRoom', { roomId, name });
+            io.to(roomId).emit('userJoined', { name });
+            console.log(`${name} joined room with ID: ${roomId}`);
         } else {
             io.to(socket.id).emit('roomNotFound');
         }
     });
 
     socket.on('startRoom', (roomId: string) => {
-        const room = rooms.find((r) => r.roomId === roomId);
+        const room = funnyrooms.find((r) => r.roomId === roomId);
 
         if (room) {
             io.to(roomId).emit('roomStarted');
             console.log(`Room with ID ${roomId} started`);
+
+            // Start a 60-second timer
+            room.timer = setTimeout(() => {
+                io.to(roomId).emit('firstRoundEnded');
+                console.log(`First round ended for room ${roomId}`);
+            }, 60000);
         }
     });
 
