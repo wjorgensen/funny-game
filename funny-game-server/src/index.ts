@@ -1,10 +1,10 @@
 import express, { Request, Response } from 'express';
-import { Server } from "socket.io";
-import http from 'http';
+import { Server, Socket } from 'socket.io';
+import { createServer } from 'node:http';
 
 const app = express();
 const port = process.env.PORT || 3000;
-const server = http.createServer(app)
+const server = createServer(app);
 
 const io = new Server(server, {
     cors: {
@@ -22,24 +22,53 @@ app.get("/createroom", (req: Request, res: Response) => {
     res.send(id.toString());
 });
 
-io.on('connection', (socket) => {
 
-    // For when the player inputs a prompt to generate the next image
-    socket.on('send-prompt', (prompt) => {
-        console.log("Prompt received: " + prompt);
-    })
+interface Room {
+    roomId: string;
+    clients: Socket[];
+}
+const rooms: Room[] = [];
 
-    socket.on('start-game', () => {
-        console.log("Game started by host");
-        socket.emit('request-prompt')
-    })
+io.on('connection', (socket: Socket) => {
+    console.log('a user connected');
 
-    // Asks the user to input a prompt
-    socket.emit('request-prompt')
+    socket.on('createRoom', () => {
+        const roomId = Math.floor(1000 + Math.random() * 9000).toString();
+        socket.join(roomId);
 
-    // Shows the current image to the user
-    socket.emit('image-url', 'https://example.com/image.jpg')
-})
+        rooms.push({ roomId, clients: [socket] });
+
+        io.to(socket.id).emit('roomCreated', { roomId });
+        console.log(`Room created with ID: ${roomId}`);
+    });
+
+    socket.on('joinRoom', (roomId: string) => {
+        const room = rooms.find((r) => r.roomId === roomId);
+
+        if (room) {
+            socket.join(roomId);
+            room.clients.push(socket);
+
+            io.to(socket.id).emit('joinedRoom', { roomId });
+            console.log(`User joined room with ID: ${roomId}`);
+        } else {
+            io.to(socket.id).emit('roomNotFound');
+        }
+    });
+
+    socket.on('startRoom', (roomId: string) => {
+        const room = rooms.find((r) => r.roomId === roomId);
+
+        if (room) {
+            io.to(roomId).emit('roomStarted');
+            console.log(`Room with ID ${roomId} started`);
+        }
+    });
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
 
 // todo: create the room in a realtime db
 
