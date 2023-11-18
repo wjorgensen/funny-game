@@ -4,7 +4,7 @@
 }
 
 .navbar {
-    background-color: #FEEFD0; /* Navbar background color */
+    background-color: #FEEFD0;
     padding: 0;
     margin: 0;
     display: flex;
@@ -37,7 +37,7 @@
     align-items: center; /* Center children horizontally */
     justify-content: center;
 }
-  
+
 .logo {
     max-width: 250px;
     margin-bottom: 20px;

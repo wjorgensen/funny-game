@@ -1,10 +1,11 @@
 import express, { Request, Response } from 'express';
-import { Server } from "socket.io";
-import http from 'http';
+import { Server, Socket } from 'socket.io';
+import { createServer } from 'node:http';
+import Room from "./modules/Room";
 
 const app = express();
-const port = process.env.PORT || 3000;
-const server = http.createServer(app)
+const port = process.env.PORT || 5000;
+const server = createServer(app);
 
 const io = new Server(server, {
     cors: {
@@ -22,18 +23,57 @@ app.get("/createroom", (req: Request, res: Response) => {
     res.send(id.toString());
 });
 
-io.on('connection', (socket) => {
-    socket.on('client-ready', () => {
-        socket.broadcast.emit('get-canvas-state')
-    })
+const funnyrooms: Room[] = [];
 
-    socket.on('canvas-state', (state) => {
-        console.log('received canvas state')
-        socket.broadcast.emit('canvas-state-from-server', state)
-    })
+io.on('connection', (socket: Socket) => {
+    console.log('a user connected');
 
-    socket.on('clear', () => io.emit('clear'))
-})
+    socket.on('createRoom', () => {
+        const roomId = Math.floor(1000 + Math.random() * 9000).toString();
+        socket.join(roomId);
+
+        funnyrooms.push(new Room(roomId));
+
+        io.to(socket.id).emit('roomCreated', { roomId });
+        console.log(`Room created with ID: ${roomId}`);
+    });
+
+    socket.on('joinRoom', (data: { roomId: string; name: string }) => {
+        const { roomId, name } = data;
+        const room = funnyrooms.find((r) => r.roomCode === roomId);
+
+        if (room) {
+            socket.join(roomId);
+            let player = room.addPlayer(socket);
+            if (player) {
+                player.setNickname(name)
+                console.log(`${name} joined room with ID: ${roomId}`);
+
+                // Update all players to make sure they have the latest player list
+                room.players.forEach(player => {
+                    player.updatePlayers()
+                })
+            }
+        } else {
+            io.to(socket.id).emit('roomNotFound');
+        }
+    });
+
+    socket.on('startRoom', (roomId: string) => {
+        const room = funnyrooms.find((r) => r.roomCode === roomId);
+
+        if (room) {
+            io.to(roomId).emit('roomStarted');
+            console.log(`Room with ID ${roomId} started`);
+
+            room.start();
+        }
+    });
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
 
 // todo: create the room in a realtime db
 

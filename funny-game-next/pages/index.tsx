@@ -1,6 +1,7 @@
-// old
+// new
+
 import Link from 'next/link';
-import styles from './Home.module.css';
+import styles from './index.module.scss';
 
 export default function Home() {
   return (

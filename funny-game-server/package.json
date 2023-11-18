@@ -18,6 +18,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "sass": "^1.69.5",
     "socket.io": "^4.7.2"
   }
 }
