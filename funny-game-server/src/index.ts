@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Server, Socket } from 'socket.io';
 import { createServer } from 'node:http';
+import Room from "./Room";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,13 +23,6 @@ app.get("/createroom", (req: Request, res: Response) => {
     res.send(id.toString());
 });
 
-
-interface Room {
-    roomId: string;
-    clients: { socket: Socket; name: string }[];
-    timer?: NodeJS.Timeout;
-}
-
 const funnyrooms: Room[] = [];
 
 io.on('connection', (socket: Socket) => {
@@ -38,7 +32,7 @@ io.on('connection', (socket: Socket) => {
         const roomId = Math.floor(1000 + Math.random() * 9000).toString();
         socket.join(roomId);
 
-        funnyrooms.push({ roomId, clients: [{ socket, name: 'Host' }] });
+        funnyrooms.push(new Room(roomId));
 
         io.to(socket.id).emit('roomCreated', { roomId });
         console.log(`Room created with ID: ${roomId}`);
@@ -46,11 +40,12 @@ io.on('connection', (socket: Socket) => {
 
     socket.on('joinRoom', (data: { roomId: string; name: string }) => {
         const { roomId, name } = data;
-        const room = funnyrooms.find((r) => r.roomId === roomId);
+        const room = funnyrooms.find((r) => r.roomCode === roomId);
 
         if (room) {
             socket.join(roomId);
-            room.clients.push({ socket, name });
+            let player = room.addPlayer(socket);
+            player.setNickname(name)
 
             io.to(socket.id).emit('joinedRoom', { roomId, name });
             io.to(roomId).emit('userJoined', { name });
@@ -61,7 +56,7 @@ io.on('connection', (socket: Socket) => {
     });
 
     socket.on('startRoom', (roomId: string) => {
-        const room = funnyrooms.find((r) => r.roomId === roomId);
+        const room = funnyrooms.find((r) => r.roomCode === roomId);
 
         if (room) {
             io.to(roomId).emit('roomStarted');

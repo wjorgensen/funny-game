@@ -6,13 +6,16 @@ export default class Room {
     // map of socket to player
     roomCode: string;
     players: Map<string, Player>;
+    timer?: NodeJS.Timeout;
 
     constructor(roomCode: string) {
         this.roomCode = roomCode;
         this.players = new Map();
     }
 
-    addPlayer(socket: Socket) {
-        this.players.set(socket.id, new Player(socket));
+    addPlayer(socket: Socket): Player {
+        let player = new Player(socket);
+        this.players.set(socket.id, player);
+        return player;
     }
 }
