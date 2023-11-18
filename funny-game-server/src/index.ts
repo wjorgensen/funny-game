@@ -22,8 +22,21 @@ app.get("/createroom", (req: Request, res: Response) => {
     res.send(id.toString());
 });
 
+io.on('connection', (socket) => {
+    socket.on('client-ready', () => {
+        socket.broadcast.emit('get-canvas-state')
+    })
+
+    socket.on('canvas-state', (state) => {
+        console.log('received canvas state')
+        socket.broadcast.emit('canvas-state-from-server', state)
+    })
+
+    socket.on('clear', () => io.emit('clear'))
+})
+
 // todo: create the room in a realtime db
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
