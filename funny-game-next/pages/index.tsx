@@ -126,14 +126,6 @@ export default function Home() {
   if (!isStarted && !isInLobby) {
     return (
       <>
-        <style jsx global>{`
-          @import url("https://fonts.googleapis.com/css2?family=Jockey+One&display=swap");
-          body {
-            background-color: #011134;
-            font-family: "Jockey One", sans-serif;
-          }
-        `}</style>
-
         <nav className={styles.navbar}>
           <ul>
             <li>
@@ -186,7 +178,9 @@ export default function Home() {
           <button onClick={createRoom} className={styles.playButton}>
             Create Room
           </button>
-          <p className={styles.tagline}>
+          <p className={styles.tagline} style={{
+             fontFamily: 'Jockey One'
+          }}>
             Unleash Your Imagination with AI-generated Art!
           </p>
         </header>
