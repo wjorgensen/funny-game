@@ -242,7 +242,7 @@ export default function Home() {
         <button onClick={submitText} className={styles.inGameSubmit}>
           Submit
         </button>
-        <p>Write a prompt to continue the story!</p>
+        <p className="inGamePrompt">Write a prompt to continue the story!</p>
         <h1 className={styles.roundNumber}>
           Round {/*Current Round*/}x/x{/*Total Rounds*/}
         </h1>
@@ -251,7 +251,10 @@ export default function Home() {
             {/*Minutes left*/}1:11{/*Seconds Left*/}
           </p>
         </div>
-        {url && <img src={url} alt="Submitted" />}
+        <div className={styles.veryThinLine}></div>
+        {url && (
+          <img src={url} alt="Submitted" className={styles.returnedImage} />
+        )}
       </div>
     </>
   );
