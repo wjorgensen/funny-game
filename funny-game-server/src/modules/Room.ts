@@ -43,12 +43,12 @@ export default class Room {
     startCountdown(player: Player, time: number) {
         let countdown = time;
 
-        player.socket.emit("timerText", `${countdown} seconds remaining`);
+        player.socket.emit("timerText", `${countdown}`);
 
         // Set up a countdown interval
         player.countdownInterval = setInterval(() => {
             countdown--;
-            player.socket.emit("timerText", `${countdown} seconds remaining`);
+            player.socket.emit("timerText", `${countdown}`);
 
             if (countdown <= 0) {
                 player.socket.emit("timerText", "Time's up!");
