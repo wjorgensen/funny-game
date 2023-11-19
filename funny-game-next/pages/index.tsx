@@ -102,7 +102,7 @@ export default function Home() {
       setName(name);
       socket.emit("createRoom");
     }
-  }
+  };
 
   const joinRoom = () => {
     const enteredRoomId = prompt("Enter room ID:");
@@ -176,8 +176,12 @@ export default function Home() {
             alt="Funny Game Logo"
             className={styles.logo}
           />
-          <button onClick={joinRoom} className={styles.playButton}>Join Room</button>
-          <button onClick={createRoom} className={styles.playButton}>Create Room</button>
+          <button onClick={joinRoom} className={styles.playButton}>
+            Join Room
+          </button>
+          <button onClick={createRoom} className={styles.playButton}>
+            Create Room
+          </button>
           <p className={styles.tagline}>
             Unleash Your Imagination with AI-generated Art!
           </p>
@@ -228,7 +232,9 @@ export default function Home() {
             <text>{roomId}</text>
             <h2 className={styles.roomKey}>ABCD</h2>
           </div>
-          <button onClick={startRoom} className={styles.playButton}>Play Game</button>
+          <button onClick={startRoom} className={styles.playButton}>
+            Play Game
+          </button>
         </div>
       </>
     );
@@ -259,7 +265,9 @@ export default function Home() {
         <button onClick={submitText} className={styles.inGameSubmit}>
           Submit
         </button>
-        <p className="inGamePrompt">Write a prompt to continue the story!</p>
+        <p className={styles.inGamePrompt}>
+          Write a prompt to continue the story!
+        </p>
         <h1 className={styles.roundNumber}>
           Round {currentRound}/{connectedUsers.length}
         </h1>
