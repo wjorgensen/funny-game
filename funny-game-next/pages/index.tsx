@@ -126,88 +126,87 @@ export default function Home() {
   if (!isStarted && !isInLobby) {
     return (
       <>
-        <nav className={styles.navbar}>
-          <ul>
-            <li>
-              <Link href="/" className={styles.navLink}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/how-to-play" className={styles.navLink}>
-                How to Play
-              </Link>
-            </li>
-            <li>
-              <Link href="/gallery" className={styles.navLink}>
-                Gallery
-              </Link>
-            </li>
-            <li>
-              <Link href="/faqs" className={styles.navLink}>
-                FAQs
-              </Link>
-            </li>
-            <li>
-              <Link href="/about-us" className={styles.navLink}>
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link href="/privacy-terms" className={styles.navLink}>
-                Privacy Terms
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog" className={styles.navLink}>
-                Blog
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <header className={styles.header}>
-          <img
-            src="/funny-game.png"
-            alt="Funny Game Logo"
-            className={styles.logo}
-          />
-          <button onClick={joinRoom} className={styles.playButton}>
-            Join Room
-          </button>
-          <button onClick={createRoom} className={styles.playButton}>
-            Create Room
-          </button>
-          <p
-            className={styles.tagline}
-            style={{
-              fontFamily: "Jockey One",
-            }}
-          >
-            Unleash Your Imagination with AI-generated Art!
-          </p>
-        </header>
-
-        <section className={styles.photoContainerGrid}>
-          {Array.from({ length: 7 }).map((_, index) => (
-            <div key={index} className="photo-container">
-              {/* content */}
-            </div>
-          ))}
-        </section>
-
-        <section className={styles.photoContainerGrid}>
-          {images.map((image, index) => (
-            <div key={index} className={styles.photoContainer}>
-              {/* Update the src to point to the images folder */}
-              <img
-                src={`/fg-ai-photos/${image}`}
-                alt={image.split(".")[0]}
-                className={styles.photo}
-              />
-            </div>
-          ))}
-        </section>
+        <div className={styles.mainGrid}>
+          <nav className={styles.navbar}>
+            <ul>
+              <li>
+                <Link href="/" className={styles.navLink}>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/how-to-play" className={styles.navLink}>
+                  How to Play
+                </Link>
+              </li>
+              <li>
+                <Link href="/gallery" className={styles.navLink}>
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link href="/faqs" className={styles.navLink}>
+                  FAQs
+                </Link>
+              </li>
+              <li>
+                <Link href="/about-us" className={styles.navLink}>
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy-terms" className={styles.navLink}>
+                  Privacy Terms
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className={styles.navLink}>
+                  Blog
+                </Link>
+              </li>
+            </ul>
+          </nav>
+          <header className={styles.header}>
+            <img
+              src="/funny-game.png"
+              alt="Funny Game Logo"
+              className={styles.logo}
+            />
+            <button onClick={joinRoom} className={styles.joinRoom}>
+              Join Room
+            </button>
+            <button onClick={createRoom} className={styles.createRoom}>
+              Create Room
+            </button>
+            <p
+              className={styles.tagline}
+              style={{
+                fontFamily: "Jockey One",
+              }}
+            >
+              Unleash Your Imagination with AI-generated Art!
+            </p>
+          </header>
+          <section className={styles.photoContainerGrid}>
+            {Array.from({ length: 7 }).map((_, index) => (
+              <div key={index} className="photo-container">
+                {/* content */}
+              </div>
+            ))}
+          </section>
+          <section className={styles.photoContainerGrid}>
+            {images.map((image, index) => (
+              <div key={index} className={styles.photoContainer}>
+                {/* Update the src to point to the images folder */}
+                <img
+                  src={`/fg-ai-photos/${image}`}
+                  alt={image.split(".")[0]}
+                  className={styles.photo}
+                />
+              </div>
+            ))}
+          </section>
+        </div>
       </>
     );
   }
