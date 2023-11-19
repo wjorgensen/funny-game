@@ -57,6 +57,11 @@ export default function Home() {
             setConnectedUsers(data);
         });
 
+        newSocket.on("showImage", (url: string) => {
+            console.log('showImage', url)
+            setUrl(url)
+        });
+
         newSocket.on('disconnect', () => {
             console.log('Disconnected from server');
         });
