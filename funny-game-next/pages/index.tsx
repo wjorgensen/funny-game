@@ -1,10 +1,11 @@
-import { Inter } from "next/font/google";
+import { Inter, Jockey_One } from "next/font/google";
 import styles from "./index.module.scss";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { Socket } from "socket.io-client";
 
 const inter = Inter({ subsets: ["latin"] });
+const jockeyOne = Jockey_One({ weight: "400", subsets: ["latin"] });
 //const jockeyOne = Jockey_One({ weight: "400", subsets: ["latin"] });
 import Link from "next/link";
 import { setIn } from "immutable";
@@ -213,7 +214,7 @@ export default function Home() {
   //In game
   return (
     <>
-      <div className={styles.inGameGrid}>
+      <div className={`${styles.inGameGrid}`}>
         <input
           type="text"
           placeholder="Enter prompt here..."
