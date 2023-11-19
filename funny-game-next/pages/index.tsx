@@ -1,12 +1,11 @@
-import Link from 'next/link';
 import styles from './index.module.scss';
-import { Inter } from "next/font/google";
-import styles from "./index.module.scss";
+import { Inter, Jockey_One } from "next/font/google";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { Socket } from "socket.io-client";
 
 const inter = Inter({ subsets: ["latin"] });
+const jockeyOne = Jockey_One({ weight: "400", subsets: ["latin"] });
 import Link from "next/link";
 import { setIn } from "immutable";
 
@@ -99,14 +98,6 @@ export default function Home() {
   if (!isStarted && !isInLobby) {
       return (
     <>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
-        body {
-          background-color: #011134;
-          font-family: 'Jockey One', sans-serif;
-        }
-      `}</style>
-
       <nav className={styles.navbar}>
         <ul>
           <li><Link href="/" className={styles.navLink}>Home</Link></li>
@@ -130,7 +121,17 @@ export default function Home() {
           <div key={index} className="photo-container">{/* content */}</div>
         ))}
       </section>
-        <img src='3x3.png' alt="d3d" className={styles.photo} />
+
+      <section className={`${styles.photoContainerGrid} 
+        ${jockeyOne.style}
+      `}>
+        {images.map((image, index) => (
+          <div key={index} className={styles.photoContainer}>
+            {/* Update the src to point to the images folder */}
+            <img src={`/fg-ai-photos/${image}`} alt={image.split('.')[0]} className={styles.photo} />
+          </div>
+        ))}
+      </section>
     </>
   )
   }
