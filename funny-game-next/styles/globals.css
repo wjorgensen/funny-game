@@ -112,8 +112,18 @@ a {
   background-color: #011134;
 }
 
-button{
-  background-color: #8b1ec9;
-}
 
+/* <section className={styles.photoContainerGrid}>
+            {images.map((image, index) => (
+              <div key={index} className={styles.photoContainer}>
+                {/* Update the src to point to the images folder }
+                <img
+                  src={`/fg-ai-photos/${image}`}
+                  alt={image.split(".")[0]}
+                  className={styles.photo}
+                />
+              </div>
+            ))}
+          </section>
+ */
 
