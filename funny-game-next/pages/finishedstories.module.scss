@@ -1,0 +1,54 @@
+.finishedStories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #011134; /* Dark background */
+  color: white;
+  font-family: 'PressStart2P', sans-serif;
+  padding: 4rem;
+  gap: 2rem; /* Space between story elements */
+  border-radius: 10px;
+}
+
+.storyTitle {
+  font-size: 2.5rem; /* Increased font size for the title */
+  color: white;
+  margin: 2rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.storySlideShow {
+  background-color: #8b1ec9; /* Purple background filled in */
+  border: 1px solid #8b1ec9; /* Much smaller purple border */
+  padding: 0.5rem; /* Reduced padding */
+  border-radius: 15px; /* Rounded corners */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  margin-bottom: 1rem; /* Space between image/text groups */
+  max-width: 300px; /* Set a max-width for consistency */
+  width: 100%; /* Use 100% of the max-width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.storySlideShowImg {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 0.5rem; /* Reduced space between image and caption */
+}
+
+.storySlideShowText {
+  font-size: 1.25rem; /* Increased font size for the text */
+  text-align: center;
+  color: white; /* Text color changed to white */
+  background-color: #8b1ec9; /* Text background to purple */
+  border-radius: 5px; /* Slightly rounded corners for text background */
+  padding: 0.5rem 1rem; /* Padding around text */
+  margin: 0; /* Remove margin for tighter spacing */
+  width: calc(100% - 2rem); /* Adjust the width to account for padding */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Removed connecting lines styles since they are not needed */

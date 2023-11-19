@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styles from './finishedstories.module.scss';
 
 interface Story {
   player: string;
@@ -9,22 +9,29 @@ interface Story {
 
 interface StorySlideShowProps {
   story: Story;
+  isLast: boolean;
 }
 
 interface FinishedStoriesProps {
   finishedStories: Story[];
 }
 
-const StorySlideShow: React.FC<StorySlideShowProps> = ({ story }) => {
+
+
+const StorySlideShow: React.FC<StorySlideShowProps> = ({ story, isLast }) => {
   return (
     <div>
-      <h3>Story by: {story.player}</h3>
+      <div className={styles.storyTitle}>{story.player}'s Story</div>
       {story.urls.map((url, index) => (
-        <div key={index}>
-          <img src={url} alt={`Slide ${index + 1}`} style={{ maxWidth: '100%' }} />
-          <p>{story.prompts[index]}</p>
+        <div key={index} className={styles.storySlideShow}>
+          <img src={url} alt={`Slide ${index + 1}`} className={styles.storySlideShowImg} />
+          <p className={styles.storySlideShowText}>{story.prompts[index]}</p>
+          {/* Render the connecting line if it's not the last image in the story, and the story is not the last one */}
+          {index < story.urls.length - 1 && <div className={styles.connectingLine}></div>}
         </div>
       ))}
+      {/* Render the connecting line if it's the last image of the story but the story is not the last one */}
+      {!isLast && <div className={styles.connectingLine}></div>}
     </div>
   );
 };
@@ -35,9 +42,9 @@ const FinishedStories: React.FC<FinishedStoriesProps> = ({ finishedStories }) =>
   }
 
   return (
-    <div>
+    <div className={styles.finishedStories}>
       {finishedStories.map((story, index) => (
-        <StorySlideShow key={index} story={story} />
+        <StorySlideShow key={index} story={story} isLast={index === finishedStories.length - 1} />
       ))}
     </div>
   );
