@@ -178,9 +178,12 @@ export default function Home() {
           <button onClick={createRoom} className={styles.playButton}>
             Create Room
           </button>
-          <p className={styles.tagline} style={{
-             fontFamily: 'Jockey One'
-          }}>
+          <p
+            className={styles.tagline}
+            style={{
+              fontFamily: "Jockey One",
+            }}
+          >
             Unleash Your Imagination with AI-generated Art!
           </p>
         </header>
@@ -214,7 +217,14 @@ export default function Home() {
     return (
       <>
         <div className={styles.grid}>
-          <h1 className={styles.header}>Lobby</h1>
+          <h1
+            className={styles.header}
+            style={{
+              fontFamily: "Press Start 2P",
+            }}
+          >
+            Lobby
+          </h1>
           <h1 className={styles.partiHeader}>Participants</h1>
           <div className={styles.partiList}>
             <ul className={styles.partiList1}>
@@ -269,7 +279,7 @@ export default function Home() {
           Round {currentRound}/{connectedUsers.length}
         </h1>
         <div className={styles.timer}>
-          <p>{timerText} secs</p>
+          <p>{timerText}</p>
         </div>
         <div className={styles.veryThinLine}></div>
         {url && (

@@ -505,13 +505,18 @@
     }
 
     .timer{
-        grid-column: 3 / span 3;
+        grid-column: 2 / span 5;
         grid-row: 5 / span 1;
         text-align: center;
         font-size: 6vh;
         color: #ffffff;
         border: 5px solid #8B1EC9;
         border-radius: 25px;
+    }
+
+    .returnedImage{
+        grid-column: 9 / span 6;
+        grid-row: 3 / span 5;
     }
 
 }
