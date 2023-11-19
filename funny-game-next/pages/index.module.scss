@@ -226,26 +226,27 @@
     }
 }
 
-
-// new 
-
 .body {
     background-color: #011134;
     font-family: 'Jockey One', sans-serif;
 }
 
 .navbar {
-    background-color: #FEEFD0;
+    background-color: #8B1EC9;
     padding: 0;
     margin: 0;
     display: flex;
     justify-content: center;
     list-style: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .navbar li {
     display: inline-block;
-    padding: 20px 30px;
+    padding: 5px 60px;
 }
 
 .navbar li a {
@@ -255,17 +256,17 @@
     font-weight: bold;
     transition: color 0.3s ease;
 }
-  
+
 .navbar li a:hover {
     color: #ffcc00;
 }
-  
+
 .header {
     text-align: center;
     padding: 50px 0;
-    display: flex; /* Using flexbox to center child elements */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center children horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -275,17 +276,17 @@
 }
 
 .playButton {
-    background-color: #FB713E; /* Play Me button color */
+    background-color: #8B1EC9; /* Play Me button color */
     color: white; /* Play Me button font color */
     border: none;
     padding: 15px 30px;
     font-size: 20px;
-    border-radius: 5px;
+    border-radius: 52px;
     cursor: pointer;
     margin-bottom: 20px;
     transition: background-color 0.3s ease;
-}  
-  
+}
+
 .play-button {
     background-color: #FB713E; /* Play Me button color */
     color: white; /* Play Me button font color */
@@ -301,9 +302,9 @@
 .play-button:hover {
     background-color: #cc5a31;
 }
-  
+
 .tagline {
-    color: #FEEFD0;
+    color: white;
     margin-bottom: 50px;
     font-size: 18px;
 }
@@ -321,4 +322,25 @@
     height: 150px; /* Adjust height as needed */
     border-radius: 10px; /* Adjust for rounded corners if desired */
 }
-  
+
+.photoContainerGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.photoContainer {
+    max-width: 200px;
+    max-height: 200px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
