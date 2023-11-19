@@ -1,6 +1,8 @@
 import Player from "./Player";
 import {Socket} from "socket.io";
 
+const ROUND_TIME: number = 30;
+
 export default class Room {
 
     // map of socket to player
@@ -29,6 +31,33 @@ export default class Room {
     }
 
     beginRound() {
+        this.players.forEach(player => {
+            this.startCountdown(player, ROUND_TIME);
+        });
+
+        this.timer = setTimeout(() => {
+            this.endRound()
+        }, ROUND_TIME * 1000);
+    }
+
+    startCountdown(player: Player, time: number) {
+        let countdown = time;
+
+        player.socket.emit("timerText", `${countdown} seconds remaining`);
+
+        // Set up a countdown interval
+        player.countdownInterval = setInterval(() => {
+            countdown--;
+            player.socket.emit("timerText", `${countdown} seconds remaining`);
+
+            if (countdown <= 0) {
+                player.socket.emit("timerText", "Time's up!");
+                clearInterval(player.countdownInterval);
+            }
+        }, 1000); // Update the countdown every second
+    }
+
+    endRound() {
         this.timer = setTimeout(() => {
             this.gameState = GameState.GeneratingImages;
             console.log(`Round ${this.round} ended for room ${this.roomCode}`);

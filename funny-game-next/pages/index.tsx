@@ -80,6 +80,10 @@ export default function Home() {
       setConnectedUsers(data);
     });
 
+    newSocket.on("timerText", (data: string) => {
+      setTimerText(data);
+    })
+
     newSocket.on("showImage", (url: string) => {
       console.log("showImage", url);
       setUrl(url);
@@ -265,7 +269,7 @@ export default function Home() {
         </h1>
         <div className={styles.timer}>
           <p>
-            {/*Minutes left*/}1:11{/*Seconds Left*/}
+            {timerText}
           </p>
         </div>
         <div className={styles.veryThinLine}></div>

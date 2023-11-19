@@ -9,6 +9,7 @@ export default class Player {
     funnyImage: FunnyImage;
 
     currentPrompt?: string;
+    countdownInterval?: NodeJS.Timeout;
 
     constructor(room: Room, socket: Socket) {
         this.room = room;
