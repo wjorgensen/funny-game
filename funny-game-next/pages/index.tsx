@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 //const jockeyOne = Jockey_One({ weight: "400", subsets: ["latin"] });
 import Link from "next/link";
 import { setIn } from "immutable";
+import FinishedStories from "@/pages/finishedstories";
 
 const images = [
   "dragtit.png",
@@ -129,6 +130,17 @@ export default function Home() {
       socket.emit("startRoom", roomId);
     }
   };
+
+  // When all the stories are finished, show the gallery
+  // Remember that finishedStories is an array of objects, and each object has:
+  // 1. player -> the player who started the story
+  // 2. urls -> The list of image urls
+  // 3. prompts -> The list of text prompts
+  if (finishedStories) {
+    return (
+      <FinishedStories finishedStories={finishedStories} />
+    );
+  }
 
   //home page
   if (!isStarted && !isInLobby) {
