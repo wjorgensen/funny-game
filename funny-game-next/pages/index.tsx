@@ -1,5 +1,5 @@
-import styles from './index.module.scss';
-import { Inter, Jockey_One } from "next/font/google";
+import { Inter } from "next/font/google";
+import styles from "./index.module.scss";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { Socket } from "socket.io-client";
@@ -10,9 +10,15 @@ import Link from "next/link";
 import { setIn } from "immutable";
 
 const images = [
-  'dragtit.png', 'mariof1.png', 'prplan.png',
-  'shrek-waffle.png', 'sonicss.png', 'spbob.png',
-  'squidd.png', 'deathfry.png', 'leakboat.png'
+  "dragtit.png",
+  "mariof1.png",
+  "prplan.png",
+  "shrek-waffle.png",
+  "sonicss.png",
+  "spbob.png",
+  "squidd.png",
+  "deathfry.png",
+  "leakboat.png",
 ];
 
 export default function Home() {
@@ -24,7 +30,7 @@ export default function Home() {
   const [inputText, setInputText] = useState<string | null>(null);
 
   const [isStarted, setStarted] = useState(false);
-  const [isInLobby, setInLobby] = useState(false);
+  const [isInLobby, setInLobby] = useState(true);
 
   useEffect(() => {
     const newSocket = io("http://localhost:5001");
@@ -95,47 +101,95 @@ export default function Home() {
     }
   };
 
+  //home page
   if (!isStarted && !isInLobby) {
-      return (
-    <>
-      <nav className={styles.navbar}>
-        <ul>
-          <li><Link href="/" className={styles.navLink}>Home</Link></li>
-          <li><Link href="/how-to-play" className={styles.navLink}>How to Play</Link></li>
-          <li><Link href="/gallery" className={styles.navLink}>Gallery</Link></li>
-          <li><Link href="/faqs" className={styles.navLink}>FAQs</Link></li>
-          <li><Link href="/about-us" className={styles.navLink}>About Us</Link></li>
-          <li><Link href="/privacy-terms" className={styles.navLink}>Privacy Terms</Link></li>
-          <li><Link href="/blog" className={styles.navLink}>Blog</Link></li>
-        </ul>
-      </nav>
+    return (
+      <>
+        <style jsx global>{`
+          @import url("https://fonts.googleapis.com/css2?family=Jockey+One&display=swap");
+          body {
+            background-color: #011134;
+            font-family: "Jockey One", sans-serif;
+          }
+        `}</style>
 
-      <header className={styles.header}>
-        <img src="/funny-game.png" alt="Funny Game Logo" className={styles.logo} />
-        <button className={styles.playButton}>Play Me!</button>
-        <p className={styles.tagline}>Unleash Your Imagination with AI-generated Art!</p>
-      </header>
+        <nav className={styles.navbar}>
+          <ul>
+            <li>
+              <Link href="/" className={styles.navLink}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/how-to-play" className={styles.navLink}>
+                How to Play
+              </Link>
+            </li>
+            <li>
+              <Link href="/gallery" className={styles.navLink}>
+                Gallery
+              </Link>
+            </li>
+            <li>
+              <Link href="/faqs" className={styles.navLink}>
+                FAQs
+              </Link>
+            </li>
+            <li>
+              <Link href="/about-us" className={styles.navLink}>
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy-terms" className={styles.navLink}>
+                Privacy Terms
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className={styles.navLink}>
+                Blog
+              </Link>
+            </li>
+          </ul>
+        </nav>
 
-      <section className={styles.photoContainerGrid}>
-        {Array.from({ length: 7 }).map((_, index) => (
-          <div key={index} className="photo-container">{/* content */}</div>
-        ))}
-      </section>
+        <header className={styles.header}>
+          <img
+            src="/funny-game.png"
+            alt="Funny Game Logo"
+            className={styles.logo}
+          />
+          <button className={styles.playButton}>Play Me!</button>
+          <p className={styles.tagline}>
+            Unleash Your Imagination with AI-generated Art!
+          </p>
+        </header>
 
-      <section className={`${styles.photoContainerGrid} 
-        ${jockeyOne.style}
-      `}>
-        {images.map((image, index) => (
-          <div key={index} className={styles.photoContainer}>
-            {/* Update the src to point to the images folder */}
-            <img src={`/fg-ai-photos/${image}`} alt={image.split('.')[0]} className={styles.photo} />
-          </div>
-        ))}
-      </section>
-    </>
-  )
+        <section className={styles.photoContainerGrid}>
+          {Array.from({ length: 7 }).map((_, index) => (
+            <div key={index} className="photo-container">
+              {/* content */}
+            </div>
+          ))}
+        </section>
+
+        <section className={styles.photoContainerGrid}>
+          {images.map((image, index) => (
+            <div key={index} className={styles.photoContainer}>
+              {/* Update the src to point to the images folder */}
+              <img
+                src={`/fg-ai-photos/${image}`}
+                alt={image.split(".")[0]}
+                className={styles.photo}
+              />
+            </div>
+          ))}
+        </section>
+      </>
+    );
   }
 
+  //lobby page
   if (isInLobby) {
     return (
       <>
@@ -144,19 +198,19 @@ export default function Home() {
           <h1 className={styles.partiHeader}>Participants</h1>
           <div className={styles.partiList}>
             <ul className={styles.partiList}>
-              <li>Partcipant 1</li>
-              <li>Partcipant 2</li>
-              <li>Partcipant 3</li>
+              {connectedUsers.map((user) => (
+                <li className={styles.partiItems} key={user}>
+                  {user}
+                </li>
+              ))}
             </ul>
           </div>
-          <h1 className={styles.codeHeader}>
-            Room
-            <br />
-            Code
-          </h1>
+          <h1 className={styles.codeHeader}>Room Code</h1>
           <div className={styles.code}>
-            <h2>ABCD</h2>
+            {/*@CJCrafter get room key and display here*/}
+            <h2 className={styles.roomKey}>ABCD</h2>
           </div>
+          {/*@CJCrafter update to start game*/}
           <button className={styles.playButton}>Play Game</button>
         </div>
       </>
@@ -174,14 +228,16 @@ export default function Home() {
     setInputText(event.target.value);
   };
 
+  //In game
   return (
     <>
-      <div>
+      <div className={styles.inGameGrid}>
         <input
           type="text"
           placeholder="Enter text here"
           value={inputText ?? ""}
           onChange={handleInputChange}
+          className={styles.inGameInput}
         />
         <button onClick={submitText}>Submit</button>
         {url && <img src={url} alt="Submitted" />}
