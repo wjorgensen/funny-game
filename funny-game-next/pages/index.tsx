@@ -6,6 +6,7 @@ import {Socket} from 'socket.io-client';
 
 const inter = Inter({subsets: ['latin']})
 import Link from 'next/link';
+import {setIn} from "immutable";
 
 
 export default function Home() {
@@ -13,10 +14,11 @@ export default function Home() {
     const [roomId, setRoomId] = useState<string>('');
     const [name, setName] = useState<string>('');
     const [connectedUsers, setConnectedUsers] = useState<string[]>([]);
-    const [isStarted, setStarted] = useState(false)
     const [url, setUrl] = useState<string | null>(null);
     const [inputText, setInputText] = useState<string | null>(null);
 
+    const [isStarted, setStarted] = useState(false)
+    const [isInLobby, setInLobby] = useState(true)
 
     useEffect(() => {
         const newSocket = io(
@@ -35,6 +37,7 @@ export default function Home() {
 
         newSocket.on('joinedRoom', (data: { roomId: string; name: string }) => {
             console.log('Joined room:', data);
+            setInLobby(true)
             setName(data.name);
             setConnectedUsers((prevUsers) => [...prevUsers, data.name]);
         });
@@ -88,7 +91,7 @@ export default function Home() {
         }
     };
 
-    if (!isStarted) {
+    if (!isStarted && !isInLobby) {
         return (
             <>
                 <style jsx global>{`
@@ -144,6 +147,15 @@ export default function Home() {
             </>
         )
     }
+
+    if (false && isInLobby) {
+        return (
+            <>
+
+            </>
+        )
+    }
+
 
     const submitText = () => {
         if (socket && inputText) {
