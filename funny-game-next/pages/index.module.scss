@@ -432,7 +432,7 @@
 .inGameGrid{
     display: grid;
     grid-template-columns: repeat(21, 1fr);
-    grid-template-rows: repeat(9, 1fr);
+    grid-template-rows: repeat(15, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     max-height: 100vh;
@@ -440,7 +440,42 @@
     overflow: hidden;
 
     .inGameInput{
-        
+        grid-column: 9 / span 9;
+        grid-row: 13 / span 1;
+        border: 5px solid #8B1EC9;
+        border-radius: 25px;
+        text-align: center;
+        font-size: 2.5vh;
+    }
+    .inGameInput::placeholder{
+        font-size: 2.5vh;
+        color: #ffffff;
+    }
+
+    .inGameSubmit{
+        grid-column: 18 / span 3;
+        grid-row: 13 / span 1;
+        border-radius: 25px;
+        text-align: center;
+        font-size: 2.5vh;
+        background-color: #8B1EC9;
+        color: #ffffff;
+        justify-self: center;
+        border: none;
+        width: 80%;
+    }
+
+    .inGameSubmit:active{
+        background-color: #ffffff;
+    }
+
+    .veryThinLine{
+        grid-column: 8 / span 1;
+        grid-row: 1 / span 14;
+        background-color: #8B1EC9;
+        width: 5%;
+        margin-top: 20px;
+        border-radius: 20px;
     }
 
 }
