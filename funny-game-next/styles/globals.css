@@ -112,9 +112,6 @@ a {
   background-color: #011134;
 }
 
-button{
-  background-color: #8b1ec9;
-}
 
 /* <section className={styles.photoContainerGrid}>
             {images.map((image, index) => (

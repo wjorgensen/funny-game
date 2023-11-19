@@ -206,26 +206,6 @@
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    .vercelLogo {
-        filter: invert(1);
-    }
-
-    .logo {
-        filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
-    }
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(360deg);
-    }
-
-    to {
-        transform: rotate(0deg);
-    }
-}
-
 
 // new new new new new new new new new new new new new new new new
 
@@ -237,7 +217,7 @@
 .mainGrid{
     display: grid;
     grid-template-columns: repeat(21, 1fr);
-    grid-template-rows: repeat(15, 1fr);
+    grid-template-rows: repeat(21, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     max-height: 100vh;
@@ -245,41 +225,31 @@
     overflow: hidden;
 }
 
-.navbar {
-    grid-column: 1 / span 21;
-    grid-row: 12 / span 2;
-    background-color: #8B1EC9;
-}
-
-.navbarList{
-    list-style-type: none;
-    display: flex;
-    background-color: #8B1EC9;
-}
-
-.navLink{
-    background-color: #8B1EC9;
-}
-
-
-
-.header {
-
-}
-
 .logo {
+    grid-column: 13 / span 3;
+    grid-row: 2 / span 6;
+    width: 100%;
+    height: 100%;
 }
 
-.joinRoom {
-    background-color: #8B1EC9; /* Play Me button color */
-    color: white; /* Play Me button font color */
-    border: none;
+//Below Logo to the right of create room
+.joinRoom { 
+    color: white; 
+    border: 5px solid #8B1EC9;
+    border-radius: 25px;
+    grid-column: 13 / span 2;
+    grid-row: 9 / span 2;
+    margin-right: 0.5vw;
 }
 
 .createRoom{
-    background-color: #8B1EC9; /* Play Me button color */
-    color: white; /* Play Me button font color */
+    background-color: #8B1EC9; 
+    color: white; 
     border: none;
+    border-radius: 25px;
+    grid-column: 15 / span 2;
+    grid-row: 9 / span 2;
+    margin-left: 0.5vw;
 }
 
 

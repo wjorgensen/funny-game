@@ -98,9 +98,9 @@ export default function Home() {
     });
 
     newSocket.on("gameFinished", (data: any[]) => {
-        console.log("gameFinished", data);
-        setFinishedStories(data);
-    })
+      console.log("gameFinished", data);
+      setFinishedStories(data);
+    });
 
     // Clean up the socket connection on component unmount
     return () => {
@@ -137,9 +137,7 @@ export default function Home() {
   // 2. urls -> The list of image urls
   // 3. prompts -> The list of text prompts
   if (finishedStories) {
-    return (
-      <FinishedStories finishedStories={finishedStories} />
-    );
+    return <FinishedStories finishedStories={finishedStories} />;
   }
 
   //home page
@@ -147,66 +145,25 @@ export default function Home() {
     return (
       <>
         <div className={styles.mainGrid}>
-          <nav className={styles.navbar}>
-            <ul className={styles.navbarList}>
-              <li>
-                <Link href="/" className={styles.navLink}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/how-to-play" className={styles.navLink}>
-                  How to Play
-                </Link>
-              </li>
-              <li>
-                <Link href="/gallery" className={styles.navLink}>
-                  Gallery
-                </Link>
-              </li>
-              <li>
-                <Link href="/faqs" className={styles.navLink}>
-                  FAQs
-                </Link>
-              </li>
-              <li>
-                <Link href="/about-us" className={styles.navLink}>
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy-terms" className={styles.navLink}>
-                  Privacy Terms
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className={styles.navLink}>
-                  Blog
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <header className={styles.header}>
-            <img
-              src="/funny-game.png"
-              alt="Funny Game Logo"
-              className={styles.logo}
-            />
-            <button onClick={joinRoom} className={styles.joinRoom}>
-              Join Room
-            </button>
-            <button onClick={createRoom} className={styles.createRoom}>
-              Create Room
-            </button>
-            <p
-              className={styles.tagline}
-              style={{
-                fontFamily: "Jockey One",
-              }}
-            >
-              Unleash Your Imagination with AI-generated Art!
-            </p>
-          </header>
+          <img
+            src="/text1-8.png"
+            alt="Funny Game Logo"
+            className={styles.logo}
+          />
+          <button onClick={joinRoom} className={styles.joinRoom}>
+            Join Room
+          </button>
+          <button onClick={createRoom} className={styles.createRoom}>
+            Create Room
+          </button>
+          <p
+            className={styles.tagline}
+            style={{
+              fontFamily: "Jockey One",
+            }}
+          >
+            Unleash Your Imagination with AI-generated Art!
+          </p>
         </div>
       </>
     );
@@ -253,7 +210,7 @@ export default function Home() {
       console.log("Submitted prompt:", inputText);
       setInputText(""); // Clear the input after sending
     } else {
-        console.log("Failed to submit prompt");
+      console.log("Failed to submit prompt");
     }
   };
 
