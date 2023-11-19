@@ -148,7 +148,7 @@ export default function Home() {
       <>
         <div className={styles.mainGrid}>
           <nav className={styles.navbar}>
-            <ul>
+            <ul className={styles.navbarList}>
               <li>
                 <Link href="/" className={styles.navLink}>
                   Home
@@ -207,25 +207,6 @@ export default function Home() {
               Unleash Your Imagination with AI-generated Art!
             </p>
           </header>
-          <section className={styles.photoContainerGrid}>
-            {Array.from({ length: 7 }).map((_, index) => (
-              <div key={index} className="photo-container">
-                {/* content */}
-              </div>
-            ))}
-          </section>
-          <section className={styles.photoContainerGrid}>
-            {images.map((image, index) => (
-              <div key={index} className={styles.photoContainer}>
-                {/* Update the src to point to the images folder */}
-                <img
-                  src={`/fg-ai-photos/${image}`}
-                  alt={image.split(".")[0]}
-                  className={styles.photo}
-                />
-              </div>
-            ))}
-          </section>
         </div>
       </>
     );

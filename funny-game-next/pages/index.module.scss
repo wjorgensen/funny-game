@@ -234,9 +234,34 @@
     font-family: 'Jockey One', sans-serif;
 }
 
+.mainGrid{
+    display: grid;
+    grid-template-columns: repeat(21, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    max-height: 100vh;
+    max-width: 100vw;
+    overflow: hidden;
+}
+
 .navbar {
+    grid-column: 1 / span 21;
+    grid-row: 12 / span 2;
     background-color: #8B1EC9;
 }
+
+.navbarList{
+    list-style-type: none;
+    display: flex;
+    background-color: #8B1EC9;
+}
+
+.navLink{
+    background-color: #8B1EC9;
+}
+
+
 
 .header {
 
@@ -245,7 +270,13 @@
 .logo {
 }
 
-.playButton {
+.joinRoom {
+    background-color: #8B1EC9; /* Play Me button color */
+    color: white; /* Play Me button font color */
+    border: none;
+}
+
+.createRoom{
     background-color: #8B1EC9; /* Play Me button color */
     color: white; /* Play Me button font color */
     border: none;
