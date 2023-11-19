@@ -28,9 +28,12 @@ export default function Home() {
   const [connectedUsers, setConnectedUsers] = useState<string[]>([]);
   const [url, setUrl] = useState<string | null>(null);
   const [inputText, setInputText] = useState<string | null>(null);
+  const [currentRound, setCurrentRound] = useState<number>(1); // [1, connectedUsers.length]
+  const [timerText, setTimerText] = useState<string>("30 seconds remaining"); // [1, connectedUsers.length
 
-  const [isStarted, setStarted] = useState(true);
-  const [isInLobby, setInLobby] = useState(true);
+  // These must be false
+  const [isStarted, setStarted] = useState(false);
+  const [isInLobby, setInLobby] = useState(false);
 
   useEffect(() => {
     const newSocket = io("http://localhost:5001");
@@ -43,13 +46,19 @@ export default function Home() {
     newSocket.on("roomCreated", (data: { roomId: string }) => {
       console.log("Room created:", data);
       setRoomId(data.roomId);
+
+      // After creating a room, it should be joined automatically
+      if (newSocket) {
+        const enteredName = prompt("Enter your name:");
+        newSocket.emit("joinRoom", { roomId: data.roomId, name: enteredName });
+      }
     });
 
     newSocket.on("joinedRoom", (data: { roomId: string; name: string }) => {
       console.log("Joined room:", data);
       setInLobby(true);
-      setName(data.name);
-      setConnectedUsers((prevUsers) => [...prevUsers, data.name]);
+      setName(data.name); // redundancy
+      setRoomId(data.roomId); // NOT a redundancy, CRUCIAL for new players
     });
 
     newSocket.on("roomNotFound", () => {
@@ -61,8 +70,9 @@ export default function Home() {
       console.log("Room started");
     });
 
-    newSocket.on("roundEnded", (i) => {
-      console.log("The " + i + " round has ended");
+    newSocket.on("currentRound", (i) => {
+      setCurrentRound(i);
+      console.log("Started round ", i);
     });
 
     newSocket.on("updatePlayers", (data: string[]) => {
@@ -86,6 +96,13 @@ export default function Home() {
       }
     };
   }, []); // Run once on component mount
+
+  const createRoom = () => {
+    if (socket) {
+      setName(name);
+      socket.emit("createRoom");
+    }
+  }
 
   const joinRoom = () => {
     const enteredRoomId = prompt("Enter room ID:");
@@ -159,7 +176,8 @@ export default function Home() {
             alt="Funny Game Logo"
             className={styles.logo}
           />
-          <button className={styles.playButton}>Play Me!</button>
+          <button onClick={joinRoom} className={styles.playButton}>Join Room</button>
+          <button onClick={createRoom} className={styles.playButton}>Create Room</button>
           <p className={styles.tagline}>
             Unleash Your Imagination with AI-generated Art!
           </p>
@@ -190,7 +208,7 @@ export default function Home() {
   }
 
   //lobby page
-  if (!isInLobby) {
+  if (!isStarted) {
     return (
       <>
         <div className={styles.grid}>
@@ -207,11 +225,10 @@ export default function Home() {
           </div>
           <h1 className={styles.codeHeader}>Room Code</h1>
           <div className={styles.code}>
-            {/*@CJCrafter get room key and display here*/}
+            <text>{roomId}</text>
             <h2 className={styles.roomKey}>ABCD</h2>
           </div>
-          {/*@CJCrafter update to start game*/}
-          <button className={styles.playButton}>Play Game</button>
+          <button onClick={startRoom} className={styles.playButton}>Play Game</button>
         </div>
       </>
     );
@@ -219,7 +236,7 @@ export default function Home() {
 
   const submitText = () => {
     if (socket && inputText) {
-      socket.emit("submitText", inputText); // Replace 'submitText' with your actual event
+      socket.emit("submitText", inputText);
       setInputText(""); // Clear the input after sending
     }
   };
@@ -244,7 +261,7 @@ export default function Home() {
         </button>
         <p>Write a prompt to continue the story!</p>
         <h1 className={styles.roundNumber}>
-          Round {/*Current Round*/}x/x{/*Total Rounds*/}
+          Round {currentRound}/{connectedUsers.length}
         </h1>
         <div className={styles.timer}>
           <p>

@@ -20,6 +20,10 @@ export default class Room {
             return;
         }
 
+        this.players.forEach(player => {
+            player.socket.emit('gameStarted');
+        })
+
         this.gameState = GameState.WaitingForPrompts;
         this.beginRound();
     }
@@ -28,6 +32,10 @@ export default class Room {
         this.timer = setTimeout(() => {
             this.gameState = GameState.GeneratingImages;
             console.log(`Round ${this.round} ended for room ${this.roomCode}`);
+
+            this.players.forEach(player => {
+                player.socket.emit("currentRound", this.round)
+            })
 
             // Create a promise array to hold all generateNextImage promises
             const imagePromises = this.players.map((player, index) => {
@@ -58,7 +66,7 @@ export default class Room {
                     player.showImage(funnyImage);
                 });
 
-                if (++this.round < this.players.length) {
+                if (++this.round <= this.players.length) {
                     this.beginRound(); // Begin the next round
                 } else {
                     this.gameState = GameState.Finished;

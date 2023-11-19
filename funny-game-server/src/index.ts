@@ -48,6 +48,7 @@ io.on('connection', (socket: Socket) => {
             if (player) {
                 player.setNickname(name)
                 console.log(`${name} joined room with ID: ${roomId}`);
+                io.to(socket.id).emit("joinedRoom", { roomId, name });
 
                 // Update all players to make sure they have the latest player list
                 room.players.forEach(player => {
