@@ -105,3 +105,15 @@ a {
     color-scheme: dark;
   }
 } */
+
+*{
+  font-family: PressStart2P;
+  color: white;
+  background-color: #011134;
+}
+
+button{
+  background-color: #8b1ec9;
+}
+
+

@@ -8,7 +8,7 @@ export default function Lobby() {
         <h1 className={styles.header}>Lobby</h1>
         <h1 className={styles.partiHeader}>Participants</h1>
         <div className={styles.partiList}>
-          <ul>
+          <ul className={styles.partiList}>
             <li>Partcipant 1</li>
             <li>Partcipant 2</li>
             <li>Partcipant 3</li>

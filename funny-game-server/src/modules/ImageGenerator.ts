@@ -36,7 +36,7 @@ export default class ImageGenerator {
             const imageCompletion = await ImageGenerator.openai.images.generate({
                 prompt: refinedPrompt,
                 model: "dall-e-2",
-                size: "256x256"
+                size: "256x256" //1024x1024
             });
             // @ts-ignore
             return imageCompletion.data[0]["url"];

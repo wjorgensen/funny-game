@@ -4,7 +4,7 @@ import { createServer } from 'node:http';
 import Room from "./modules/Room";
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 const server = createServer(app);
 
 const io = new Server(server, {
