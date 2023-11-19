@@ -156,14 +156,6 @@ export default function Home() {
           <button onClick={createRoom} className={styles.createRoom}>
             Create Room
           </button>
-          <p
-            className={styles.tagline}
-            style={{
-              fontFamily: "Jockey One",
-            }}
-          >
-            Unleash Your Imagination with AI-generated Art!
-          </p>
         </div>
       </>
     );
