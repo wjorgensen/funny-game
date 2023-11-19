@@ -425,6 +425,23 @@
     .roomKey{
         background-color: #8B1EC9;
     }
+}
+
+//In Game CSS
+
+.inGameGrid{
+    display: grid;
+    grid-template-columns: repeat(21, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    max-height: 100vh;
+    max-width: 100vw;
+    overflow: hidden;
+
+    .inGameInput{
+        
+    }
 
 }
 

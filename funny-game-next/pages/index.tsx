@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import { Socket } from "socket.io-client";
 
 const inter = Inter({ subsets: ["latin"] });
-const jockeyOne = Jockey_One({ weight: "400", subsets: ["latin"] });
+//const jockeyOne = Jockey_One({ weight: "400", subsets: ["latin"] });
 import Link from "next/link";
 import { setIn } from "immutable";
 
@@ -29,7 +29,7 @@ export default function Home() {
   const [url, setUrl] = useState<string | null>(null);
   const [inputText, setInputText] = useState<string | null>(null);
 
-  const [isStarted, setStarted] = useState(false);
+  const [isStarted, setStarted] = useState(true);
   const [isInLobby, setInLobby] = useState(true);
 
   useEffect(() => {
@@ -190,7 +190,7 @@ export default function Home() {
   }
 
   //lobby page
-  if (isInLobby) {
+  if (!isInLobby) {
     return (
       <>
         <div className={styles.grid}>
@@ -239,7 +239,18 @@ export default function Home() {
           onChange={handleInputChange}
           className={styles.inGameInput}
         />
-        <button onClick={submitText}>Submit</button>
+        <button onClick={submitText} className={styles.inGameSubmit}>
+          Submit
+        </button>
+        <p>Write a prompt to continue the story!</p>
+        <h1 className={styles.roundNumber}>
+          Round {/*Current Round*/}x/x{/*Total Rounds*/}
+        </h1>
+        <div className={styles.timer}>
+          <p>
+            {/*Minutes left*/}1:11{/*Seconds Left*/}
+          </p>
+        </div>
         {url && <img src={url} alt="Submitted" />}
       </div>
     </>
