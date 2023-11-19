@@ -29,7 +29,7 @@ export default function Home() {
   const [url, setUrl] = useState<string | null>(null);
   const [inputText, setInputText] = useState<string | null>(null);
   const [currentRound, setCurrentRound] = useState<number>(1); // [1, connectedUsers.length]
-  const [timerText, setTimerText] = useState<string>("30 seconds remaining"); // [1, connectedUsers.length
+  const [timerText, setTimerText] = useState<string>("30"); // [1, connectedUsers.length
 
   // finishedStories is a list of data objects, each with a list of image urls, list of text prompts, and the player who started the story
   const [finishedStories, setFinishedStories] = useState<any[] | null>(null);
@@ -85,7 +85,7 @@ export default function Home() {
 
     newSocket.on("timerText", (data: string) => {
       setTimerText(data);
-    })
+    });
 
     newSocket.on("showImage", (url: string) => {
       console.log("showImage", url);
@@ -186,9 +186,12 @@ export default function Home() {
           <button onClick={createRoom} className={styles.playButton}>
             Create Room
           </button>
-          <p className={styles.tagline} style={{
-             fontFamily: 'Jockey One'
-          }}>
+          <p
+            className={styles.tagline}
+            style={{
+              fontFamily: "Jockey One",
+            }}
+          >
             Unleash Your Imagination with AI-generated Art!
           </p>
         </header>
@@ -222,12 +225,19 @@ export default function Home() {
     return (
       <>
         <div className={styles.grid}>
-          <h1 className={styles.header}>Lobby</h1>
+          <h1
+            className={styles.header}
+            style={{
+              fontFamily: "Press Start 2P",
+            }}
+          >
+            Lobby
+          </h1>
           <h1 className={styles.partiHeader}>Participants</h1>
           <div className={styles.partiList}>
-            <ul className={styles.partiList}>
+            <ul className={styles.partiList1}>
               {connectedUsers.map((user) => (
-                <li className={styles.partiItems} key={user}>
+                <li className={styles.partiItem} key={user}>
                   {user}
                 </li>
               ))}
@@ -238,7 +248,7 @@ export default function Home() {
             <h2 className={styles.roomKey}>{roomId}</h2>
           </div>
           <button onClick={startRoom} className={styles.playButton}>
-            Play Game
+            Play Game!
           </button>
         </div>
       </>
@@ -277,9 +287,7 @@ export default function Home() {
           Round {currentRound}/{connectedUsers.length}
         </h1>
         <div className={styles.timer}>
-          <p>
-            {timerText}
-          </p>
+          <p>{timerText}</p>
         </div>
         <div className={styles.veryThinLine}></div>
         {url && (
