@@ -210,7 +210,7 @@ export default function Home() {
   }
 
   //lobby page
-  if (!isStarted) {
+  if (isStarted) {
     return (
       <>
         <div className={styles.grid}>
@@ -227,8 +227,7 @@ export default function Home() {
           </div>
           <h1 className={styles.codeHeader}>Room Code</h1>
           <div className={styles.code}>
-            <text>{roomId}</text>
-            <h2 className={styles.roomKey}>ABCD</h2>
+            <h2 className={styles.roomKey}>{roomId}</h2>
           </div>
           <button onClick={startRoom} className={styles.playButton}>
             Play Game
