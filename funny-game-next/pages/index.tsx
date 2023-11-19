@@ -234,7 +234,7 @@ export default function Home() {
       <div className={styles.inGameGrid}>
         <input
           type="text"
-          placeholder="Enter text here"
+          placeholder="Enter prompt here..."
           value={inputText ?? ""}
           onChange={handleInputChange}
           className={styles.inGameInput}
