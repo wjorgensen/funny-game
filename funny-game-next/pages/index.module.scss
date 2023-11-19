@@ -227,7 +227,7 @@
 }
 
 
-// new 
+// new new new new new new new new new new new new new new new new
 
 .body {
     background-color: #011134;
@@ -235,17 +235,21 @@
 }
 
 .navbar {
-    background-color: #FEEFD0;
+    background-color: #8B1EC9;
     padding: 0;
     margin: 0;
     display: flex;
     justify-content: center;
     list-style: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .navbar li {
     display: inline-block;
-    padding: 20px 30px;
+    padding: 5px 60px;
 }
 
 .navbar li a {
@@ -263,9 +267,9 @@
 .header {
     text-align: center;
     padding: 50px 0;
-    display: flex; /* Using flexbox to center child elements */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center children horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -275,12 +279,12 @@
 }
 
 .playButton {
-    background-color: #FB713E; /* Play Me button color */
+    background-color: #8B1EC9; /* Play Me button color */
     color: white; /* Play Me button font color */
     border: none;
     padding: 15px 30px;
     font-size: 20px;
-    border-radius: 5px;
+    border-radius: 52px;
     cursor: pointer;
     margin-bottom: 20px;
     transition: background-color 0.3s ease;
@@ -303,7 +307,7 @@
 }
   
 .tagline {
-    color: #FEEFD0;
+    color: white;
     margin-bottom: 50px;
     font-size: 18px;
 }
@@ -311,14 +315,34 @@
 .photo-container-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px; /* Adjust gap size as needed */
+    gap: 15px;
     padding: 0 50px;
     justify-content: center;
 }
 
 .photo-container {
-    background-color: blue; /* Adjust to the color of your photo container */
-    height: 150px; /* Adjust height as needed */
-    border-radius: 10px; /* Adjust for rounded corners if desired */
+    background-color: blue;
+    height: 150px;
+    border-radius: 10px;
 }
-  
+
+.photoContainerGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.photoContainer {
+    max-width: 100px;
+    max-height: 100px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}

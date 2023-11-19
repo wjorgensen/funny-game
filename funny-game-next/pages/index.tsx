@@ -1,5 +1,3 @@
-// new
-
 import Link from 'next/link';
 import styles from './index.module.scss';
 
@@ -37,6 +35,7 @@ export default function Home() {
           <div key={index} className="photo-container">{/* content */}</div>
         ))}
       </section>
+        <img src='3x3.png' alt="d3d" className={styles.photo} />
     </>
   )
 }
