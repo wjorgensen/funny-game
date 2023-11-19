@@ -269,7 +269,10 @@ export default function Home() {
   const submitText = () => {
     if (socket && inputText) {
       socket.emit("submitPrompt", inputText);
+      console.log("Submitted prompt:", inputText);
       setInputText(""); // Clear the input after sending
+    } else {
+        console.log("Failed to submit prompt");
     }
   };
 

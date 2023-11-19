@@ -17,7 +17,7 @@ export default class Player {
         this.nickname = "Player " + Math.floor(Math.random() * 1000);
         this.funnyImage = new FunnyImage(this);
 
-        this.socket.on("sendPrompt", (prompt: string) => {
+        this.socket.on("submitPrompt", (prompt: string) => {
             this.currentPrompt = prompt;
         })
     }
