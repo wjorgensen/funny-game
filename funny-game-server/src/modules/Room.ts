@@ -68,7 +68,9 @@ export default class Room {
 
             // Create a promise array to hold all generateNextImage promises
             const imagePromises = this.players.map((player, index) => {
-                const prompt = player.currentPrompt || "The characters sit still, looking mildly confused or annoyed.";
+                let prompt = player.currentPrompt;
+                if (!prompt)
+                    prompt = "The characters sit still, looking mildly confused or annoyed."
                 const funnyImage = this.players[(index + this.round) % this.players.length].funnyImage;
 
                 // generateNextImage is async, so we call it and return the promise
@@ -100,6 +102,19 @@ export default class Room {
                 } else {
                     this.gameState = GameState.Finished;
                     console.log("Game finished!");
+
+                    const stories: any[] = []
+                    this.players.forEach(player => {
+                        stories.push({
+                            player: player.nickname,
+                            prompts: player.funnyImage.prompts,
+                            urls: player.funnyImage.urls
+                        })
+                    })
+
+                    this.players.forEach(player => {
+                        player.socket.emit("gameFinished", stories);
+                    })
                 }
             }).catch(error => {
                 console.error('Error generating images:', error);

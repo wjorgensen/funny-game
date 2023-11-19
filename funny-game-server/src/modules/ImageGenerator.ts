@@ -13,7 +13,7 @@ export default class ImageGenerator {
             "You must output ONLY the prompt for the next frame, no other text or metadata. ";
 
         const chatCompletion = await ImageGenerator.openai.chat.completions.create({
-            model: "gpt-3.5",
+            model: "gpt-4",
             messages: [
                 {
                     content: system,

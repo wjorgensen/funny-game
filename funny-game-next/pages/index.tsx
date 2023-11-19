@@ -31,6 +31,9 @@ export default function Home() {
   const [currentRound, setCurrentRound] = useState<number>(1); // [1, connectedUsers.length]
   const [timerText, setTimerText] = useState<string>("30 seconds remaining"); // [1, connectedUsers.length
 
+  // finishedStories is a list of data objects, each with a list of image urls, list of text prompts, and the player who started the story
+  const [finishedStories, setFinishedStories] = useState<any[] | null>(null);
+
   // These must be false
   const [isStarted, setStarted] = useState(false);
   const [isInLobby, setInLobby] = useState(false);
@@ -92,6 +95,11 @@ export default function Home() {
     newSocket.on("disconnect", () => {
       console.log("Disconnected from server");
     });
+
+    newSocket.on("gameFinished", (data: any[]) => {
+        console.log("gameFinished", data);
+        setFinishedStories(data);
+    })
 
     // Clean up the socket connection on component unmount
     return () => {
@@ -210,7 +218,7 @@ export default function Home() {
   }
 
   //lobby page
-  if (isStarted) {
+  if (!isStarted) {
     return (
       <>
         <div className={styles.grid}>
@@ -239,7 +247,7 @@ export default function Home() {
 
   const submitText = () => {
     if (socket && inputText) {
-      socket.emit("submitText", inputText);
+      socket.emit("submitPrompt", inputText);
       setInputText(""); // Clear the input after sending
     }
   };
