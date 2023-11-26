@@ -6,6 +6,8 @@
 
 In Funny Game, creativity and spontaneity are key. Players join a lobby, input prompts, and AI-generated images based on these prompts are passed around. Each round contributes to an evolving story, often leading to humorous and unexpected results showcased at the game's conclusion.
 
+<img src="https://github.com/wjorgensen/funny-game/blob/main/game-images/Screenshot%202023-11-19%20at%203.34.49%20AM.png?raw=true">
+
 ## 🛠️ Technology Stack
 
 - **Frontend**: Developed with Next.js for a responsive and interactive user experience.
