@@ -1,9 +1,7 @@
 # 🎮 Funny Game
 
-## 🌟 Introduction
 
-Welcome to Funny Game, a unique browser-based game that blends the excitement of drawing and guessing with the power of AI. Created during BostonHacks 2023, this game offers a hilarious and unpredictable gaming experience.
-
+## Welcome to Funny Game, a unique browser-based game that blends the excitement of drawing and guessing with the power of AI. Created during BostonHacks 2023.
 ## 🕹️ Gameplay
 
 In Funny Game, creativity and spontaneity are key. Players join a lobby, input prompts, and AI-generated images based on these prompts are passed around. Each round contributes to an evolving story, often leading to humorous and unexpected results showcased at the game's conclusion.
